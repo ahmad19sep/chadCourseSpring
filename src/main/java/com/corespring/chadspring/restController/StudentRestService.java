@@ -14,14 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class StudentRestService {
 
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleStudentNotFoundException(StudentNotFoundException e){
-        StudentErrorResponse errorResponse=new StudentErrorResponse();
-        errorResponse.setErrorCode(HttpStatus.NOT_FOUND.value());
-        errorResponse.setErrorMessage(e.getMessage());
-        errorResponse.setTimestamp(System.currentTimeMillis());
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
+
 
     //getting all the students
     @GetMapping("/students")
