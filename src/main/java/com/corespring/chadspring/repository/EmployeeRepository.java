@@ -1,4 +1,4 @@
-package com.corespring.chadspring.dao;
+package com.corespring.chadspring.repository;
 
 import com.corespring.chadspring.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
