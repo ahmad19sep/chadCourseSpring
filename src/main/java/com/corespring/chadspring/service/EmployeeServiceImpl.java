@@ -1,49 +1,51 @@
 package com.corespring.chadspring.service;
 
-import com.corespring.chadspring.dao.EmployeeDAO;
+import com.corespring.chadspring.dao.EmployeeRepository;
 import com.corespring.chadspring.entity.Employee;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private EmployeeDAO employeeDao;
+    private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO) {
-        this.employeeDao = employeeDAO;
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
-    public List<Employee> listEmployees() {
-        return employeeDao.listEmployees();
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
     }
 
     @Override
-    public Employee getEmployee(int id) {
-       return employeeDao.getEmployee(id);
+    public Optional<Employee> findById(Long id) {
+       return employeeRepository.findById(id);
 
     }
 
     @Override
     @Transactional
     public void saveEmployee(Employee employee) {
-      employeeDao.saveEmployee(employee);
+      employeeRepository.save(employee);
     }
 
     @Override
     @Transactional
     public Employee updateEmployee(Employee employee) {
 
-        return employeeDao.updateEmployee(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override
     @Transactional
-    public void deleteEmployee(int id) {
-       employeeDao.deleteEmployee(id);
+    public void deleteEmployee(Long id) {
+       employeeRepository.deleteById(id);
 
     }
 }

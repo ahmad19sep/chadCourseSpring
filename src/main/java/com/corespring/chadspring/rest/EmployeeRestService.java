@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -20,12 +21,12 @@ public class EmployeeRestService {
 
     @GetMapping("/employees")
     public List<Employee> getAllEmployees() {
-        return employeeService.listEmployees();
+        return employeeService.findAll();
     }
 
     @GetMapping("/employees/{EmployeeId}")
-    public Employee getEmployeeById(@PathVariable int EmployeeId) {
-        return employeeService.getEmployee(EmployeeId);
+    public Optional<Employee> getEmployeeById(@PathVariable long EmployeeId) {
+        return employeeService.findById(EmployeeId);
     }
 
     @PostMapping("/employees")
@@ -39,9 +40,9 @@ public class EmployeeRestService {
     }
 
     @DeleteMapping("/employees/{EmployeeId}")
-    public String deleteEmployee(@PathVariable int EmployeeId) {
-        Employee findEmployee = employeeService.getEmployee(EmployeeId);
-        if (findEmployee == null) {
+    public String deleteEmployee(@PathVariable long EmployeeId) {
+        Optional<Employee> findEmployee = employeeService.findById(EmployeeId);
+        if (findEmployee.isEmpty()) {
             throw new RuntimeException("Employee not found + EmployeeId: " + EmployeeId);
         }
         employeeService.deleteEmployee(EmployeeId);
